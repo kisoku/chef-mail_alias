@@ -11,8 +11,8 @@ the newaliases command
 Attributes
 ==========
 
-node['mail_aliases']['file']
-
 Usage
 =====
+
+
 
