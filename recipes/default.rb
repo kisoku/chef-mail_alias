@@ -29,7 +29,7 @@ template node[:mail_alias][:alias_file] do
   source "aliases.erb"
   cookbook "mail_alias"
   variables({:aliases => {}})
-  notifies :run, newaliases
+  notifies :run, "execute[newaliases]", :immediately
 end
 
 accumulator "collect mail_aliases for #{node[:mail_alias][:alias_file]}"  do
