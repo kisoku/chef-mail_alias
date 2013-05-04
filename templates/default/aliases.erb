@@ -15,6 +15,6 @@ noc: root
 security: root
 
 # chef generated aliases via email_alias LWRP
-<% @aliases.each do |name, recipients| -%>
-<%= name %>: <%= recipients.join(", ") %>
+<% @aliases.each do |resource| -%>
+<%= resource.name %>: <%= resource.recipients.join(", ") %>
 <% end -%>

@@ -16,3 +16,36 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+execute "newaliases" do
+  action :nothing
+end
+
+template node[:mail_alias][:alias_file] do
+  action :nothing
+  mode "644"
+  owner "root"
+  group "root"
+  source "aliases.erb"
+  cookbook "mail_alias"
+  variables({:aliases => {}})
+  notifies :run, newaliases
+end
+
+accumulator "collect mail_aliases for #{node[:mail_alias][:alias_file]}"  do
+  target "template[#{node[:mail_alias][:alias_file]}"
+
+  filter do |resource|
+    resource.is_a? Chef::Resource::MailAlias
+  end
+
+  transform do |resources|
+    aliases = {}
+    resources.each do |res|
+      aliases[res.name] = aliases unless aliases.has_key?(res.name)
+    end
+    resources
+  end
+
+  variable :aliases
+end
