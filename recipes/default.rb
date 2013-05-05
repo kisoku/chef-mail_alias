@@ -33,7 +33,7 @@ template node[:mail_alias][:alias_file] do
 end
 
 accumulator "collect mail_aliases for #{node[:mail_alias][:alias_file]}"  do
-  target "template[#{node[:mail_alias][:alias_file]}"
+  target :template => node[:mail_alias][:alias_file]
 
   filter do |resource|
     resource.is_a? Chef::Resource::MailAlias
