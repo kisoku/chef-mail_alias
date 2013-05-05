@@ -47,5 +47,5 @@ accumulator "collect mail_aliases for #{node[:mail_alias][:alias_file]}"  do
     resources
   end
 
-  variable :aliases
+  variable_name :aliases
 end

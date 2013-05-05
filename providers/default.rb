@@ -18,6 +18,4 @@
 # limitations under the License.
 
 action :create do
-  include_recipe "mail_alias"
-  new_resource.updated_by_last_action(true)
 end
