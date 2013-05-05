@@ -35,17 +35,24 @@ end
 accumulator "collect mail_aliases for #{node[:mail_alias][:alias_file]}"  do
   target :template => node[:mail_alias][:alias_file]
 
-  filter do |resource|
+  filter {|resource|
     resource.is_a? Chef::Resource::MailAlias
-  end
+  }
 
-  transform do |resources|
+  transform {|resources|
     aliases = {}
     resources.each do |res|
-      aliases[res.name] = aliases unless aliases.has_key?(res.name)
+      unless aliases.has_key?(res.name)
+        aliases[res.name] = []
+      end
+      if res.recipients.is_a? String
+        aliases[res.name].push(res.recipients)
+      elsif res.recipients.is_a? Array
+        aliases[res.name].concat(res.recipients)
+      end
     end
-    resources
-  end
+    aliases
+  }
 
   variable_name :aliases
 end
