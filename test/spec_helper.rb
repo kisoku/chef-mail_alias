@@ -1,8 +1,4 @@
-
 require 'rubygems'
 
-gem 'chef'
-gem 'minitest'
-
-require 'chef'
+require 'chefspec'
 require 'minitest/autorun'

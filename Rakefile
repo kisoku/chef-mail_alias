@@ -1,33 +1,49 @@
 #!/usr/bin/env rake
 require 'rake/testtask'
-
-require 'rake/testtask'
-
+require 'rubocop/rake_task'
+require 'foodcritic'
 
 Rake::TestTask.new do |t|
-    t.libs.push "lib"
-    t.test_files = FileList['test/**/*_spec.rb']
-    t.verbose = true
+  t.libs.push 'lib'
+  t.test_files = FileList['test/**/*_spec.rb']
+  t.verbose = true
 end
 
-desc "Runs foodcritic linter"
+desc 'Setup and run Foodcritic'
 task :foodcritic do
-  if Gem::Version.new("1.9.2") <= Gem::Version.new(RUBY_VERSION.dup)
-    sandbox = File.join(File.dirname(__FILE__), %w{tmp foodcritic cookbook})
-    prepare_foodcritic_sandbox(sandbox)
+  Rake::Task['foodcritic:setup'].invoke
+  Rake::Task['foodcritic:run'].invoke
+end
 
-    sh "foodcritic --epic-fail any #{File.dirname(sandbox)}"
-  else
-    puts "WARN: foodcritic run is skipped as Ruby #{RUBY_VERSION} is < 1.9.2."
+namespace :foodcritic do
+  task :setup do
+    sandbox = File.join(File.dirname(__FILE__), %w(tmp foodcritic cookbook))
+    prepare_foodcritic_sandbox(sandbox)
+  end
+
+  FoodCritic::Rake::LintTask.new(:run) do |t|
+    t.options = {
+      tags: %w(
+        ~solo
+        ~FC019
+      ),
+      fail_tags: ['any'],
+      cookbook_paths: File.join(File.dirname(__FILE__), %w(tmp foodcritic cookbook))
+    }
   end
 end
+
+desc 'RuboCop compliancy checks'
+RuboCop::RakeTask.new(:rubocop)
 
 private
 
 def prepare_foodcritic_sandbox(sandbox)
-  files = %w{*.md *.rb attributes definitions files providers recipes resources templates}
+  files = %w(*.md *.rb attributes definitions files providers recipes resources templates)
 
   rm_rf sandbox
   mkdir_p sandbox
   cp_r Dir.glob("{#{files.join(',')}}"), sandbox
 end
+
+task default: [:rubocop, :foodcritic, :test]

@@ -1,0 +1,9 @@
+AllCops:
+  Exclude:
+    - 'tmp/'
+
+Metrics/LineLength:
+  Max: 120
+
+Style/SingleSpaceBeforeFirstArg:
+  Enabled: false
