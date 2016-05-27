@@ -5,5 +5,10 @@ AllCops:
 Metrics/LineLength:
   Max: 120
 
-Style/SingleSpaceBeforeFirstArg:
+Style/ExtraSpacing:
+  Exclude:
+    - metadata.rb
+    - tmp/foodcritic/cookbook/metadata.rb
+
+Style/SpaceBeforeFirstArg:
   Enabled: false

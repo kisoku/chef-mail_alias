@@ -1,13 +1,9 @@
 #!/usr/bin/env rake
-require 'rake/testtask'
+require 'rspec/core/rake_task'
 require 'rubocop/rake_task'
 require 'foodcritic'
 
-Rake::TestTask.new do |t|
-  t.libs.push 'lib'
-  t.test_files = FileList['test/**/*_spec.rb']
-  t.verbose = true
-end
+RSpec::Core::RakeTask.new(:spec)
 
 desc 'Setup and run Foodcritic'
 task :foodcritic do
@@ -46,4 +42,4 @@ def prepare_foodcritic_sandbox(sandbox)
   cp_r Dir.glob("{#{files.join(',')}}"), sandbox
 end
 
-task default: [:rubocop, :foodcritic, :test]
+task default: [:rubocop, :foodcritic, :spec]

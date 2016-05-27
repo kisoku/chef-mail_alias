@@ -17,6 +17,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+use_inline_resources if defined?(use_inline_resources)
+
+provides :mail_alias
+
 action :create do
   newaliases = nil
   begin
