@@ -27,6 +27,6 @@ describe 'MailAlias::Provider::Default' do
     resource.run_context = runner.run_context
 
     provider = resource.provider_for_action(:create)
-    expect(provider.class).to eq(Chef::Provider::MailAlias)
+    expect(provider.class).to eq(Chef::ProviderResolver.new(runner.node, provider.class, :create).resource)
   end
 end
