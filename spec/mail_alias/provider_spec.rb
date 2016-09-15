@@ -13,12 +13,7 @@ describe 'MailAlias::Resource::Default' do
 end
 
 describe 'MailAlias::Provider::Default' do
-  before do
-    Chef::Resource::LWRPBase.build_from_file('mail_alias', File.join(cb_root, 'resources', 'default.rb'), nil)
-    Chef::Provider::LWRPBase.build_from_file('mail_alias', File.join(cb_root, 'providers', 'default.rb'), nil)
-  end
-
-  let(:runner) { ChefSpec::SoloRunner.new.converge }
+  let(:runner) { ChefSpec::SoloRunner.new.converge('mail_alias::default') }
 
   it 'should properly handle a new_resource reference' do
     resource = Chef::Resource::MailAlias.new('test_alias')
