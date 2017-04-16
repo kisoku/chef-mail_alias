@@ -35,7 +35,7 @@ RuboCop::RakeTask.new(:rubocop)
 private
 
 def prepare_foodcritic_sandbox(sandbox)
-  files = %w(*.md *.rb attributes definitions files providers recipes resources templates)
+  files = %w(*.md *.rb attributes definitions files providers recipes resources templates LICENSE)
 
   rm_rf sandbox
   mkdir_p sandbox
