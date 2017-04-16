@@ -1,0 +1,27 @@
+AllCops:
+  DisplayCopNames: true
+  Exclude:
+    - 'tmp/'
+
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 120
+
+Style/ExtraSpacing:
+  Exclude:
+    - metadata.rb
+    - tmp/foodcritic/cookbook/metadata.rb
+
+Style/PercentLiteralDelimiters:
+  PreferredDelimiters:
+    default: ()
+    '%w': '()'
+    '%W': '()'
+
+Style/SpaceBeforeFirstArg:
+  Enabled: false
+
+Style/SymbolArray:
+  Enabled: false
