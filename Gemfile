@@ -5,8 +5,8 @@ group :testing do
   gem 'chef'
   gem 'chefspec'
   gem 'foodcritic'
+  gem 'minitest'
   gem 'pry'
   gem 'rake'
   gem 'rubocop'
-  gem 'minitest'
 end
