@@ -1,3 +1,4 @@
+name             "mail_alias"
 maintainer       "Mathieu Sauve-Frankel"
 maintainer_email "msf@kisoku.net"
 license          "Apache 2.0"
